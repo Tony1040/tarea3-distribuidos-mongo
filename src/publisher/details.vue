@@ -4,7 +4,7 @@
     <div class="eleven column" style="margin-top: 3%">
       <div v-if="show" class="row">
         <img
-          v-bind:src="`/netlify/functions/` + publisher.imagen"
+          v-bind:src="`/src/publisher/` + publisher.imagen"
           height="300"
           width="600"
           class="six columns four columns offset-by-three"
@@ -15,7 +15,12 @@
         <div class="row">
           <div class="four columns">
             <label for="titleInput">Id</label>
-            <input class="u-full-width" type="text" v-model="publisher._id" />
+            <input
+              class="u-full-width"
+              type="text"
+              v-model="publisher._id"
+              readonly
+            />
           </div>
         </div>
         <div class="row">
@@ -149,6 +154,8 @@ export default {
     const route = useRoute();
     if (this.show || this.edit) {
       this.findPublisher(route.params.id);
+    } else {
+      this.publisher._id = Math.floor(Math.random() * 100000000);
     }
   },
   methods: {

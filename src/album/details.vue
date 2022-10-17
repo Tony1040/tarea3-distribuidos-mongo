@@ -4,7 +4,7 @@
     <div class="eleven column" style="margin-top: 3%">
       <div v-if="show" class="row">
         <img
-          v-bind:src="`/netlify/functiasdasdonss/` + album.imagen"
+          v-bind:src="`/src/album/` + album.imagen"
           height="700"
           width="600"
           class="twelve columns"
@@ -15,7 +15,7 @@
         <div class="row">
           <div class="four columns">
             <label for="titleInput">Id</label>
-            <input class="u-full-width" type="text" v-model="album._id" />
+            <input class="u-full-width" type="text" v-model="album._id"  readonly/>
           </div>
         </div>
         <div class="row">
@@ -147,7 +147,10 @@ export default {
     const route = useRoute();
     if (this.show || this.edit) {
       this.findAlbum(route.params.id);
+    } else {
+      this.album._id =  Math.floor(Math.random()*100000000);
     }
+    
   },
   methods: {
     findAlbum: function (id) {

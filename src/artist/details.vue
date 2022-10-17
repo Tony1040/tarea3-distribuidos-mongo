@@ -4,7 +4,7 @@
     <div class="eleven column" style="margin-top: 3%">
       <div v-if="show" class="row">
         <img
-          v-bind:src="`/netlify/functions/` + artist.imagen"
+          v-bind:src="`/src/artist/` + artist.imagen"
           height="700"
           class="twelve columns"
         />
@@ -14,7 +14,12 @@
         <div class="row">
           <div class="four columns">
             <label for="titleInput">Id</label>
-            <input class="u-full-width" type="text" v-model="artist._id" />
+            <input
+              class="u-full-width"
+              type="text"
+              v-model="artist._id"
+              readonly
+            />
           </div>
         </div>
         <div class="row">
@@ -144,6 +149,8 @@ export default {
     const route = useRoute();
     if (this.show || this.edit) {
       this.findArtist(route.params.id);
+    } else {
+      this.artist._id = Math.floor(Math.random() * 100000000);
     }
   },
   methods: {

@@ -11,6 +11,10 @@ const ALBUMS_COLECTION = "albums";
 
 const app = express.Router();
 
+app.options("/", (req, res) => {
+  res.json({ statusCode: 200, headers, body: "OK" });
+});
+
 app.get("/", async (req, res) => {
   try {
     const client = await clientPromise;

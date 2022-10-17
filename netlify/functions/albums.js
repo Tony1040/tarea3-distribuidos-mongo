@@ -12,36 +12,9 @@ const PUBLISHER_COLECTION = "discograficas";
 
 const app = express.Router();
 
-// const get_artist = async (artist_id) => {
-//   try {
-//     const client = await clientPromise;
-
-//     const artist = await client
-//       .db(DB_NAME)
-//       .collection(ARTIST_COLECTION)
-//       .find({ _id: parseInt(artist_id) })
-//       .toArray();
-//     return artist[0];
-//   } catch (error) {
-//     console.log(error);
-//     return [];
-//   }
-// };
-// const get_publisher = async (publisher_id) => {
-//   try {
-//     const client = await clientPromise;
-
-//     const publisher = await client
-//       .db(DB_NAME)
-//       .collection(PUBLISHER_COLECTION)
-//       .find({ _id: parseInt(publisher_id) })
-//       .toArray();
-//     return publisher[0];
-//   } catch (error) {
-//     console.log(error);
-//     return [];
-//   }
-// };
+app.options("/", (req, res) => {
+  res.json({ statusCode: 200, headers, body: "OK" });
+});
 
 app.get("/", async (req, res) => {
   try {
@@ -83,8 +56,11 @@ app.post("/", async (req, res) => {
   try {
     const client = await clientPromise;
 
-    const data = req.body;
+    let data = req.body;
     data._id = parseInt(data._id);
+    data.id_artista = parseInt(data.id_artista);
+    data.id_discografica = parseInt(data.id_discografica);
+
     await client.db(DB_NAME).collection(ALBUMS_COLECTION).insertOne(data);
 
     res.json({ statusCode: 200, headers, body: "OK" });
@@ -98,9 +74,12 @@ app.put("/:id", async (req, res) => {
   try {
     const client = await clientPromise;
 
-    const data = req.body;
+    let data = req.body;
     const id = parseInt(data._id);
     data._id = id;
+    data.id_artista = parseInt(data.id_artista);
+    data.id_discografica = parseInt(data.id_discografica);
+
     await client
       .db(DB_NAME)
       .collection(ALBUMS_COLECTION)
