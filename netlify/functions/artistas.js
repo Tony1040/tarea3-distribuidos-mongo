@@ -57,7 +57,7 @@ app.get("/:id/albums", async (req, res) => {
       .collection(ALBUMS_COLECTION)
       .find({ id_artista: parseInt(req.params.id) })
       .toArray();
-    console.log("returning albums: ", albums)
+    console.log("returning albums: ", albums);
     res.json(albums);
   } catch (error) {
     console.log(error);
@@ -90,7 +90,7 @@ app.put("/:id", async (req, res) => {
     await client
       .db(DB_NAME)
       .collection(ARTIST_COLECTION)
-      .updateOne({ _id: id, $set: data });
+      .updateOne({ _id: id }, { $set: data });
 
     res.json({ statusCode: 200, headers, body: "OK" });
   } catch (error) {

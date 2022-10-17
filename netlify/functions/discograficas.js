@@ -94,7 +94,7 @@ app.put("/:id", async (req, res) => {
     await client
       .db(DB_NAME)
       .collection(PUBLISHER_COLECTION)
-      .updateOne({ _id: id, $set: data });
+      .updateOne({ _id: id }, { $set: data });
 
     res.json({ statusCode: 200, headers, body: "OK" });
   } catch (error) {
